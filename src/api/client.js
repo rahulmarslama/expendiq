@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instance = axios.create({
+const httpClient = axios.create({
   baseURL: 'http://localhost:3000/api/expendiq',
   headers: {
     'Content-Type': 'application/json'
@@ -10,4 +10,4 @@ const instance = axios.create({
 
 
 
-export default instance;
+export default httpClient;

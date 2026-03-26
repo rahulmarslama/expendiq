@@ -1,6 +1,6 @@
-import instance  from "./client";
+import httpClient  from "./client";
 
 export const weatherforcastApi = 
 {
-    get: ()=> instance.get('/weatherforecast')
+    get: ()=> httpClient.get('/weatherforecast')
 };

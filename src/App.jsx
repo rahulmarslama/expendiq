@@ -4,17 +4,26 @@ import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import { weatherforcastApi } from './api/weatherforcast'
 import './App.css'
+import { categoryApi } from './api/category'
 
 function App() {
   const [weatherData, setWeatherData] = useState("");
+  const [category, setCategory] = useState("");
+
 
   useEffect(()=>{
    const fetchData = async () => {
     try {
-      const apiResponse = await weatherforcastApi.get();
-      const weatherInformation = JSON.stringify(apiResponse.data); 
+      const weatherApiResponse = await weatherforcastApi.get();
+      const categoryApiResponse = await categoryApi.get();
+
+      const weatherInformation = JSON.stringify(weatherApiResponse.data); 
+      const categorygetAll = JSON.stringify(categoryApiResponse.data); 
+
       console.log(weatherInformation);
       setWeatherData(weatherInformation);
+      setCategory(categorygetAll);
+
     } catch(err) {
       console.error("Error caught:", err);
       setWeatherData("Error Bruhhh");
@@ -28,7 +37,10 @@ function App() {
   return (
     <>
       <h1>Rahul Lama React Application</h1>
-      <p>{weatherData}</p>
+      <p>Weather data:{weatherData}</p>
+      <br/>
+      <br/>
+      <p>Category data: {category}</p>
     </>
   )
 }
