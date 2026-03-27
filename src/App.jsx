@@ -5,6 +5,7 @@ import heroImg from './assets/hero.png'
 import { weatherforcastApi } from './api/weatherforcast'
 import './App.css'
 import { categoryApi } from './api/category'
+import { Button } from './components/ui/button'
 
 function App() {
   const [weatherData, setWeatherData] = useState("");
@@ -33,6 +34,9 @@ function App() {
   fetchData();
 }, []);
 
+const handleClick = ()=>{
+alert('Button clicked!!!!!!');
+};
 
   return (
     <>
@@ -41,6 +45,7 @@ function App() {
       <br/>
       <br/>
       <p>Category data: {category}</p>
+      <Button onClick={handleClick}>Click Me</Button>
     </>
   )
 }
