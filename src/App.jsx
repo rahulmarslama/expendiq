@@ -1,60 +1,35 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { weatherforcastApi } from './api/weatherforcast'
 import './App.css'
-import { categoryApi } from './api/category'
-import { Button } from './components/ui/button'
-import { ArrowUpIcon } from "lucide-react"
+import Home from './pages/Home.jsx'
+import Category from './pages/Category'
+import { AuthProvider } from 'oidc-react';
 
-function App() {
-  const [weatherData, setWeatherData] = useState("");
-  const [category, setCategory] = useState("");
+import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 
-
-  useEffect(()=>{
-   const fetchData = async () => {
-    try {
-      const weatherApiResponse = await weatherforcastApi.get();
-      const categoryApiResponse = await categoryApi.get();
-
-      const weatherInformation = JSON.stringify(weatherApiResponse.data); 
-      const categorygetAll = JSON.stringify(categoryApiResponse.data); 
-
-      console.log(weatherInformation);
-      setWeatherData(weatherInformation);
-      setCategory(categorygetAll);
-
-    } catch(err) {
-      console.error("Error caught:", err);
-      setWeatherData("Error Bruhhh");
-    }
-  };
-  
-  fetchData();
-}, []);
-
-const handleClick = ()=>{
-alert('Button clicked!!!!!!');
+const oidcConfig = {
+  onSignIn: async (user) => {
+    alert('You just signed in, congratz! Check out the console!');
+    console.log(user);
+    window.location.hash = '';
+  },
+  authority: 'https://localhost:2900',
+  clientId:
+    'expendiq_client',
+  responseType: 'code',
+  redirectUri:'http://localhost:2500/',
+  scope:'openid profile'
 };
 
-  return (
-    <>
-      {/* <h1>Rahul Lama React Application</h1>
-      <p>Weather data:{weatherData}</p>
-      <br/>
-      <br/>
-      <p>Category data: {category}</p>
-      <Button onClick={handleClick}>Click Me</Button> */}
+function App() {
 
-      <div className="flex flex-wrap items-center gap-2 md:flex-row">
-      <Button onClick={handleClick} variant="outline">Button</Button>
-      <Button variant="outline" size="icon" aria-label="Submit">
-        <ArrowUpIcon />
-      </Button>
-    </div>
-    </>
+  return (
+    <AuthProvider {...oidcConfig}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/category" element={<Category />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 
