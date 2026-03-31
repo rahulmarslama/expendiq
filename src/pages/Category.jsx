@@ -66,7 +66,7 @@ const callApi = async () => {
     setLoading(true);
     try {
       // Get access token from auth object
-      const token = auth.access_token;
+      const token = auth.userData?.access_token;
       console.log(token);
 
       const response = await fetch('http://localhost:3000/api/expendiq/category', {

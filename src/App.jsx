@@ -16,7 +16,7 @@ const oidcConfig = {
     'expendiq_client',
   responseType: 'code',
   redirectUri:'http://localhost:2500/',
-  scope:'openid profile'
+  scope:'openid profile expendiqApiScope'
 };
 
 function App() {
